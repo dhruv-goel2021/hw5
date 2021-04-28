@@ -24,14 +24,14 @@ window.addEventListener('DOMContentLoaded', async function() {
 
     // - Get a reference to the element containing the user-entered location
     let locationInput = document.querySelector(`#location`)
-
+    let forecastDaysInput  = document.querySelector(`#days`)
     // - Get the user-entered location from the element's value
     let location = locationInput.value
-
+    let forecastDays = forecastDaysInput.value
     // - Check to see if the user entered anything; if so:
-    if (location.length > 0) {
+    if (location.length > 0 && forecastDays>0) {
       // - Construct a URL to call the WeatherAPI.com API
-      let url = `https://api.weatherapi.com/v1/forecast.json?key=53a0155e46494151b76200952212604&q=${location}&days=3`
+      let url = `https://api.weatherapi.com/v1/forecast.json?key=4cdeffb1df8a45859e5165937212804&q=${location}&days=${forecastDays}`
 
       // - Fetch the url, wait for a response, store the response in memory
       let response = await fetch(url)
@@ -55,13 +55,43 @@ window.addEventListener('DOMContentLoaded', async function() {
         <div class="text-center space-y-2">
           <div class="font-bold text-3xl">Current Weather for ${interpretedLocation.name}, ${interpretedLocation.region}</div>
           <div class="font-bold">
-            <img src="https://cdn.weatherapi.com/weather/64x64/day/116.png" class="inline-block">
-            <span class="temperature">60</span>° 
+            <img src='http:${currentWeather.condition.icon}' class="inline-block">
+            <span class="temperature">${currentWeather.temp_f}</span>° 
             and
-            <span class="conditions">Partly Cloudy</span>
+            <span class="conditions">${currentWeather.condition.text}</span>
           </div>
         </div>
       `
-    }
+    
+//create a loop for the forecasts
+
+for (let i = 0; i< dailyForecast.legnth; i++) {
+
+//create variables for each forecast type
+
+  let forecastDate = dailyForecast[i].forecastday.date
+  let minTemp = dailyForecast[i].forecastday.day.mintemp_f
+  let maxTemp = dailyForecast[i].forecastday.day.maxtemp_f
+  let condition = dailyForecast[i].forecastday.day.condition.text
+  let conditionPic = dailyForecast[i].forecastday.day.condition.icon
+
+
+// Create a variable for the HTML element we're going to add to
+let currentElement = document.querySelector(`.forecast`)
+// Insert HTML into the products element, using the data from each product
+currentElement.innerHTML = `
+<div class="text-center space-y-8">
+        <div class="font-bold text-3xl">3 Day Forecast</div>
+        <div>
+          <img src='https:${conditionPic}' class="mx-auto">
+          <h1 class="text-2xl text-bold text-gray-500">${forecastDate}</h1>
+          <h2 class="text-xl">High ${maxTemp}° – Low ${minTemp}</h2>
+          <p class="text-gray-500">${condition}</h1>
+        </div>
+
+      </div>`
+
+}
+}
   })
 })

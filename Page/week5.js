@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', async function() {
     
 //create a loop for the forecasts
 
-for (let i = 0; i< dailyForecast.legnth; i++) {
+for (let i = 0; i< dailyForecast.length; i++) {
 
 //create variables for each forecast type
 
@@ -77,11 +77,11 @@ for (let i = 0; i< dailyForecast.legnth; i++) {
 
 
 // Create a variable for the HTML element we're going to add to
-let currentElement = document.querySelector(`.forecast`)
+let forecastElement = document.querySelector(`.forecast`)
 // Insert HTML into the products element, using the data from each product
-currentElement.innerHTML = `
+forecastElement.innerHTML= `  
 <div class="text-center space-y-8">
-        <div class="font-bold text-3xl">3 Day Forecast</div>
+        <div class="font-bold text-3xl"> ${forecastDays} Day Forecast</div>
         <div>
           <img src='https:${conditionPic}' class="mx-auto">
           <h1 class="text-2xl text-bold text-gray-500">${forecastDate}</h1>
@@ -90,6 +90,7 @@ currentElement.innerHTML = `
         </div>
 
       </div>`
+
 
 }
 }

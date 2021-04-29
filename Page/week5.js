@@ -79,11 +79,13 @@ for (let i = 0; i< dailyForecast.length; i++) {
   let condition = dailyForecast[i].day.condition.text
   let conditionPic = dailyForecast[i].day.condition.icon
 
+
 // store a reference eto the "forecast" element 
 let forecastElement = document.querySelector(`.forecast`)
+
 //Fill the forecast element with the forecasted weather conditions
-forecastElement.insertAdjacentHTML(`beforeend`,`
-<div class="text-center space-y-8">
+forecastElement.insertAdjacentHTML(`afterbegin`,`
+ <div class="text-center space-y-8">
         <div class="font-bold text-3xl"> ${forecastDays} Day Forecast</div>
         <div>
           <img src='https:${conditionPic}' class="mx-auto">
@@ -93,6 +95,7 @@ forecastElement.insertAdjacentHTML(`beforeend`,`
         </div>
 
       </div>`
+
 )}      
 }
 })

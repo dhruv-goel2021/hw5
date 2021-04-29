@@ -41,11 +41,12 @@ window.addEventListener('DOMContentLoaded', async function() {
 
       // - Write the json-formatted data to the JavaScript console
       console.log(json)
+      console.log(location)
+      console.log(forecastDays)
 
       // - Store the returned location, current weather conditions, the forecast as three separate variables
       let interpretedLocation = json.location
       let currentWeather = json.current
-      let dailyForecast = json.forecast
 
       // Store a reference to the "current" element
       let currentElement = document.querySelector(`.current`)
@@ -63,23 +64,25 @@ window.addEventListener('DOMContentLoaded', async function() {
         </div>
       `
     
+
+let dailyForecast = json.forecast.forecastday
+
 //create a loop for the forecasts
 
 for (let i = 0; i< dailyForecast.length; i++) {
 
 //create variables for each forecast type
 
-  let forecastDate = dailyForecast[i].forecastday.date
-  let minTemp = dailyForecast[i].forecastday.day.mintemp_f
-  let maxTemp = dailyForecast[i].forecastday.day.maxtemp_f
-  let condition = dailyForecast[i].forecastday.day.condition.text
-  let conditionPic = dailyForecast[i].forecastday.day.condition.icon
+  let forecastDate = dailyForecast[i].date
+  let minTemp = dailyForecast[i].day.mintemp_f
+  let maxTemp = dailyForecast[i].day.maxtemp_f
+  let condition = dailyForecast[i].day.condition.text
+  let conditionPic = dailyForecast[i].day.condition.icon
 
-
-// Create a variable for the HTML element we're going to add to
+// store a reference eto the "forecast" element 
 let forecastElement = document.querySelector(`.forecast`)
-// Insert HTML into the products element, using the data from each product
-forecastElement.innerHTML= `  
+//Fill the forecast element with the forecasted weather conditions
+forecastElement.insertAdjacentHTML(`beforeend`,`
 <div class="text-center space-y-8">
         <div class="font-bold text-3xl"> ${forecastDays} Day Forecast</div>
         <div>
@@ -90,9 +93,9 @@ forecastElement.innerHTML= `
         </div>
 
       </div>`
-
-
+)}      
 }
-}
-  })
 })
+  })
+
+

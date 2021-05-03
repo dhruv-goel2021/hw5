@@ -67,6 +67,15 @@ window.addEventListener('DOMContentLoaded', async function() {
 
 let dailyForecast = json.forecast.forecastday
 
+let forecastElement = document.querySelector(`.forecast`)
+
+//Fill the forecast element with the forecasted weather conditions
+forecastElement.insertAdjacentHTML(`beforebegin`,`
+ <div class="text-center space-y-8">
+        <div class="font-bold text-3xl"> ${forecastDays} Day Forecast</div>`
+)
+
+
 //create a loop for the forecasts
 
 for (let i = 0; i< dailyForecast.length; i++) {
@@ -84,9 +93,9 @@ for (let i = 0; i< dailyForecast.length; i++) {
 let forecastElement = document.querySelector(`.forecast`)
 
 //Fill the forecast element with the forecasted weather conditions
-forecastElement.insertAdjacentHTML(`afterbegin`,`
+
+forecastElement.insertAdjacentHTML(`beforebegin`,`
  <div class="text-center space-y-8">
-        <div class="font-bold text-3xl"> ${forecastDays} Day Forecast</div>
         <div>
           <img src='https:${conditionPic}' class="mx-auto">
           <h1 class="text-2xl text-bold text-gray-500">${forecastDate}</h1>
